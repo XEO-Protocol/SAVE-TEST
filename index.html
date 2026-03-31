@@ -4095,6 +4095,24 @@ function setScrollIndicator(visible) {
 }
 
 function selectModule(diskId) {
+  function maybeScrollOpenedModuleIntoView(target) {
+    if (!target || typeof window === 'undefined' || typeof target.getBoundingClientRect !== 'function') return;
+    if (!window.matchMedia || !window.matchMedia('(max-width: 640px)').matches) return;
+
+    const rect = target.getBoundingClientRect();
+    const viewportH = window.innerHeight || document.documentElement.clientHeight || 0;
+    const aboveViewport = rect.top < 0;
+    const belowViewport = rect.top > viewportH * 0.72;
+
+    if (!aboveViewport && !belowViewport) return;
+
+    try {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } catch (err) {
+      target.scrollIntoView();
+    }
+  }
+
   const inputPanel = document.getElementById('inputPanel');
   const moduleHint = document.getElementById('moduleHint');
 
@@ -4118,6 +4136,7 @@ function selectModule(diskId) {
     if (inputPanel) inputPanel.style.display = '';
     if (moduleHint) moduleHint.style.display = 'none';
     setInputMethod('extract');
+    maybeScrollOpenedModuleIntoView(inputPanel);
   } else {
     // Future unlocked modules open their own SFWA
     showToast(diskId + ' module — coming soon');
