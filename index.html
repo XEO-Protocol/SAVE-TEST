@@ -1019,6 +1019,40 @@
 
   .btn-export-roast:hover { background: rgba(255,212,0,0.10); }
 
+  @media (max-width: 640px) {
+    .btn-export,
+    .btn-download,
+    .btn-export-roast {
+      width: 100%;
+      justify-content: center;
+      padding: 10px 14px;
+      font-size: 10px;
+      min-width: 0;
+    }
+
+    #results .panel-header[style*="justify-content:space-between"] > div:last-child,
+    #comparePanelBody > div > div[style*="display:flex;gap:8px;align-items:center"],
+    #results .panel-header[style*="justify-content:space-between"] > div:last-child > div {
+      width: 100%;
+    }
+
+    #results .panel-header[style*="justify-content:space-between"] > div:last-child {
+      align-items: stretch !important;
+    }
+
+    #results .panel-header[style*="justify-content:space-between"] > div:last-child > div,
+    #comparePanelBody > div > div[style*="display:flex;gap:8px;align-items:center"] {
+      display: flex !important;
+      flex-wrap: wrap;
+      gap: 8px !important;
+    }
+
+    #results .panel-header[style*="justify-content:space-between"] > div:last-child > div > button,
+    #comparePanelBody > div > div[style*="display:flex;gap:8px;align-items:center"] > button {
+      flex: 1 1 100%;
+    }
+  }
+
   /* Dividers */
   .divider {
     border: none;
